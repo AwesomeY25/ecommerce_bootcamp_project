@@ -1,11 +1,39 @@
 {% extends 'ecommerce_app/base.html' %}
 
 {% block content %}
-<h1>Welcome to My E-Commerce Site</h1>
-<h2>Categories</h2>
-<ul>
-    {% for category in categories %}
-    <li><a href="#">{{ category.name }}</a></li>
-    {% endfor %}
-</ul>
+<div class="hero-section">
+    <h1>Find Parts For Your Vehicle</h1>
+    <p>Over hundreds of brands and tens of thousands of parts</p>
+    <div class="search-bar">
+        <input type="text" placeholder="Brand">
+        <input type="text" placeholder="Type">
+        <input type="text" placeholder="Color">
+        <button type="submit">Search</button>
+    </div>
+</div>
+
+<div class="featured-categories">
+    <h2>Shop by Category</h2>
+    <div class="category-cards">
+        {% for category in categories %}
+            <div class="category-card">
+                <h3>{{ category.name }}</h3>
+                <a href="#" class="shop-now-btn">Shop Now</a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="featured-products">
+    <h2>Featured Products</h2>
+    <div class="product-cards">
+        {% for product in products %}
+            <div class="product-card">
+                <h3>{{ product.name }}</h3>
+                <p>PHP {{ product.price }}</p>
+                <a href="{% url 'product_page' product.id %}" class="view-product-btn">View Product</a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}

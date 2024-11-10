@@ -4,35 +4,58 @@
 {% block title %}Checkout{% endblock %}
 
 {% block content %}
-<h1>Checkout</h1>
+<div class="checkout-container container py-5">
+    <h1 class="checkout-title text-center mb-4">Checkout</h1>
 
-<div class="checkout-container">
-    <div class="cart-items">
-        <h2>Your Cart Items:</h2>
-        <ul>
-            {% for product_id, quantity in cart.items.items %}
-                <li>
-                    {% with product=products|get_item:product_id %}
-                        {{ product.name }} - Quantity: {{ quantity }} - Price: ${{ product.price }}
-                    {% endwith %}
-                </li>
-            {% endfor %}
-        </ul>
+    <div class="row">
+        <!-- Cart Items Column -->
+        <div class="col-md-7">
+            <div class="cart-items bg-light p-4 rounded shadow-sm">
+                <h4 class="mb-4">Your Cart Items:</h4>
+                <ul class="cart-item-list list-unstyled">
+                    {% for item in cart.items %}
+                        <li class="cart-item d-flex justify-content-between align-items-center mb-3 border-bottom pb-3">
+                            <div class="d-flex align-items-center">
+                                <span class="product-name mr-3 text-nowrap" style="font-weight: 500;">{{ item.product_name }}  </span>
+                                <span class="product-quantity mr-3 text-nowrap" style="color: #555;">  x{{ item.quantity }}</span>
+                                <span class="product-price mr-3 text-nowrap" style="color: #777;">(PHP {{ item.price|floatformat:2 }}) </span>
+                                <span class="product-total text-nowrap" style="color: #333; font-weight: 600;"> = PHP {{ item.item_total|floatformat:2 }}</span>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <div class="cart-summary mt-4 text-right">
+                    <h5 class="font-weight-bold">Overall Total: <span style="color: #2b8a3e;">PHP {{ total_price|floatformat:2 }}</span></h5>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Column -->
+        <div class="col-md-5">
+            <div class="checkout-form bg-light p-4 rounded shadow-sm">
+                <form method="POST">
+                    {% csrf_token %}
+                    
+                    <div class="form-group mb-3">
+                        <label for="name" class="form-label">Full Name</label>
+                        <input type="text" id="name" name="name" required class="form-control" placeholder="Enter your full name">
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="address" class="form-label">Address</label>
+                        <input type="text" id="address" name="address" required class="form-control" placeholder="Enter your delivery address">
+                    </div>
+
+                    <div class="form-group mb-4">
+                        <label for="payment_info" class="form-label">Payment Information</label>
+                        <input type="text" id="payment_info" name="payment_info" required class="form-control" placeholder="Enter payment details">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block py-2">Complete Purchase</button>
+                </form>
+            </div>
+        </div>
     </div>
-
-    <form method="POST" class="checkout-form">
-        {% csrf_token %}
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required>
-
-        <label for="address">Address:</label>
-        <input type="text" id="address" name="address" required>
-
-        <label for="payment_info">Payment Information:</label>
-        <input type="text" id="payment_info" name="payment_info" required>
-
-        <button type="submit">Complete Purchase</button>
-    </form>
 </div>
 
 {% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'ecommerce_app/base.html' %}
+{% load custom_filters %}
+
+{% block content %}
+<div class="container cart-page">
+    <h1 class="cart-title">Your Cart</h1>
+
+    {% if cart_items %}
+        <form action="{% url 'cart_page' %}" method="POST" class="cart-form">
+            {% csrf_token %}
+            <table class="table cart-table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart_items %}
+                        <tr>
+                            <td>{{ item.product.name }}</td>
+                            <td>
+                                <input type="number" name="quantity_{{ item.product.id }}" value="{{ item.quantity }}" min="1" max="{{ item.product.stock }}" class="quantity-input form-control">
+                            </td>
+                            <td>PHP {{ item.product.price }}</td>
+                            <td id="item-total-{{ item.product.id }}">PHP {{ item.product.price|multiply:item.quantity }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="cart-summary">
+                <p><strong>Total: PHP <span id="total-price">{{ total_price }}</span></strong></p>
+            </div>
+
+            <div class="cart-actions">
+                <a href="{% url 'homepage' %}" class="btn btn-secondary btn-continue-shopping">Continue Shopping</a>
+                <button type="submit" class="btn btn-warning btn-update-cart">Update Cart</button>
+                <a href="{% url 'checkout_page' %}" class="btn btn-primary btn-checkout">Proceed to Checkout</a>
+            </div>
+        </form>
+    {% else %}
+        <p>Your cart is empty.</p>
+        <a href="{% url 'homepage' %}" class="btn btn-secondary btn-continue-shopping">Start Shopping</a>
+    {% endif %}
+</div>
+{% endblock %}

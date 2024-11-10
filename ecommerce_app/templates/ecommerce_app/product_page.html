@@ -1,0 +1,41 @@
+{% extends 'ecommerce_app/base.html' %}
+
+{% block content %}
+<div class="container-fluid product-page">
+    <h1 class="product-title">{{ product.name }}</h1>
+    
+    <div class="row">
+        <div class="col-md-4">
+            <!-- Product placeholder image -->
+            <div class="product-placeholder">
+                <p>Image</p>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <!-- Product details -->
+            <p><strong>Category:</strong> {{ product.category.name }}</p>
+            <p><strong>Description:</strong> {{ product.description }}</p>
+            <p><strong>Price:</strong> PHP {{ product.price }}</p>
+            <p><strong>In Stock:</strong> {{ product.stock }}</p>
+
+            {% if product.stock > 0 %}
+                <form action="{% url 'product_page' product.id %}" method="POST" class="add-to-cart-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="product_id" value="{{ product.id }}">
+                    <div class="input-group mb-3">
+                        <input type="number" name="quantity" value="1" min="1" max="{{ product.stock }}" class="form-control quantity-input" style="flex-grow: 1;">
+                        <button type="submit" class="btn btn-primary btn-add-to-cart" style="flex-grow: 1;">Add to Cart</button>
+                    </div>
+                </form>
+            {% else %}
+                <p class="text-danger out-of-stock">Out of stock</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row">
+        <button class="btn btn-secondary" onclick="window.location.href='{% url 'homepage' %}'">Back to Homepage</button>
+    </div>
+</div>
+{% endblock %}
