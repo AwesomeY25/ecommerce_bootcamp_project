@@ -1,16 +1,8 @@
 from django.contrib import admin
-from .models import Category, Product, Cart
+from .models import Category, Product, Order, OrderItem
 
-class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name')
-
-class ProductAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'price', 'category')
-    list_filter = ('category',)
-
-class CartAdmin(admin.ModelAdmin):
-    list_display = ('id', 'items')
-
-admin.site.register(Category, CategoryAdmin)
-admin.site.register(Product, ProductAdmin)
-admin.site.register(Cart, CartAdmin)
+# Register the models
+admin.site.register(Category)
+admin.site.register(Product)
+admin.site.register(Order)
+admin.site.register(OrderItem)

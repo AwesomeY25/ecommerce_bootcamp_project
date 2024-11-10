@@ -1,61 +1,41 @@
 {% extends 'ecommerce_app/base.html' %}
-{% load custom_filters %}
 
-{% block title %}Product{% endblock %}
-<!DOCTYPE html>
-<head>
-    <title>Product Listing Page</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="product-list">
-        <!-- Product 1 -->
-        <div class="product-item">
-            <img src="product1.jpg" alt="Product 1" class="product-image">
-            <h2 class="product-title">Rearview Mirror</h2>
-            <p class="product-price">₱4,000</p>
-            <p class="product-description">This prodcut is cstomizable</p>
-            
-            <!-- Add to Cart Form -->
-            <form action="/add-to-cart" method="POST">
-                <input type="hidden" name="product_id" value="1">
-                <label for="quantity1">Quantity:</label>
-                <input type="number" id="quantity1" name="quantity" value="1" min="1">
-                <button type="submit">Add to Cart</button>
-            </form>
+{% block content %}
+<div class="container-fluid product-page">
+    <h1 class="product-title">{{ product.name }}</h1>
+    
+    <div class="row">
+        <div class="col-md-4">
+            <!-- Product placeholder image -->
+            <div class="product-placeholder">
+                <p>Image</p>
+            </div>
         </div>
 
-        <!-- Product 2 -->
-        <div class="product-item">
-            <img src="product2.jpg" alt="Product 2" class="product-image">
-            <h2 class="product-title">Rear Suspension</h2>
-            <p class="product-price">₱7,000</p>
-            <p class="product-description">Product is from high-quality manufacturers in Japan.</p>
-            
-            <!-- Add to Cart Form -->
-            <form action="/add-to-cart" method="POST">
-                <input type="hidden" name="product_id" value="2">
-                <label for="quantity2">Quantity:</label>
-                <input type="number" id="quantity2" name="quantity" value="1" min="1">
-                <button type="submit">Add to Cart</button>
-            </form>
-        </div>
+        <div class="col-md-8">
+            <!-- Product details -->
+            <p><strong>Category:</strong> {{ product.category.name }}</p>
+            <p><strong>Description:</strong> {{ product.description }}</p>
+            <p><strong>Price:</strong> PHP {{ product.price }}</p>
+            <p><strong>In Stock:</strong> {{ product.stock }}</p>
 
-        <!-- Product 3 -->
-        <div class="product-item">
-            <img src="product3.jpg" alt="Product 3" class="product-image">
-            <h2 class="product-title">Shock Absorber</h2>
-            <p class="product-price">₱9,000</p>
-            <p class="product-description">Product was sourced from Germany.</p>
-            
-            <!-- Add to Cart Form -->
-            <form action="/add-to-cart" method="POST">
-                <input type="hidden" name="product_id" value="3">
-                <label for="quantity3">Quantity:</label>
-                <input type="number" id="quantity3" name="quantity" value="1" min="1">
-                <button type="submit">Add to Cart</button>
-            </form>
+            {% if product.stock > 0 %}
+                <form action="{% url 'product_page' product.id %}" method="POST" class="add-to-cart-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="product_id" value="{{ product.id }}">
+                    <div class="input-group mb-3">
+                        <input type="number" name="quantity" value="1" min="1" max="{{ product.stock }}" class="form-control quantity-input" style="flex-grow: 1;">
+                        <button type="submit" class="btn btn-primary btn-add-to-cart" style="flex-grow: 1;">Add to Cart</button>
+                    </div>
+                </form>
+            {% else %}
+                <p class="text-danger out-of-stock">Out of stock</p>
+            {% endif %}
         </div>
     </div>
-</body>
-</html>
+
+    <div class="row">
+        <button class="btn btn-secondary" onclick="window.location.href='{% url 'homepage' %}'">Back to Homepage</button>
+    </div>
+</div>
+{% endblock %}
