@@ -14,12 +14,14 @@
                 <h4 class="mb-4">Your Cart Items:</h4>
                 <ul class="cart-item-list list-unstyled">
                     {% for item in cart.items %}
-                        <li class="cart-item d-flex justify-content-between align-items-center mb-3 border-bottom pb-3">
-                            <div class="d-flex align-items-center">
-                                <span class="product-name mr-3 text-nowrap" style="font-weight: 500;">{{ item.product_name }}  </span>
-                                <span class="product-quantity mr-3 text-nowrap" style="color: #555;">  x{{ item.quantity }}</span>
-                                <span class="product-price mr-3 text-nowrap" style="color: #777;">(PHP {{ item.price|floatformat:2 }}) </span>
-                                <span class="product-total text-nowrap" style="color: #333; font-weight: 600;"> = PHP {{ item.item_total|floatformat:2 }}</span>
+                        <li class="cart-item mb-3 border-bottom pb-3">
+                            <div class="product-info">
+                                <span class="product-name font-weight-bold">{{ item.product_name }}</span>
+                            </div>
+                            <div class="product-details text-muted">
+                                <span class="product-quantity">x {{ item.quantity }}</span>
+                                <span class="product-price ml-2">(PHP {{ item.price|floatformat:2 }})</span>
+                                <span class="product-total ml-2 font-weight-bold">= PHP {{ item.item_total|floatformat:2 }}</span>
                             </div>
                         </li>
                     {% endfor %}
