@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import CheckoutForm
+from .forms import CheckoutForm, ProductForm
 from .models import Product, Category, Order, OrderItem
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -167,3 +167,16 @@ def checkout_page(request):
 # Confirmation Page View
 def confirmation_page(request):
     return render(request, 'ecommerce_app/confirmation_page.html')
+
+# Product Form View
+# views.py
+
+def product_form(request):
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('homepage')
+    else:
+        form = ProductForm()
+    return render(request, 'ecommerce_app/product_form.html', {'form': form})

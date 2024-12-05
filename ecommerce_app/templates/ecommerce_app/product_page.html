@@ -17,6 +17,15 @@
             <p><strong>Category:</strong> {{ product.category.name }}</p>
             <p><strong>Description:</strong> {{ product.description }}</p>
             <p><strong>Price:</strong> PHP {{ product.price }}</p>
+            <p><strong>Tags:</strong> 
+                {% if product.get_tags_list %} 
+                    {% for tag in product.get_tags_list %} 
+                        <span class="badge bg-secondary">{{ tag }}</span> 
+                    {% endfor %}
+                {% else %} 
+                    No tags available 
+                {% endif %}
+            </p>
             <p><strong>In Stock:</strong> {{ product.stock }}</p>
 
             {% if product.stock > 0 %}
