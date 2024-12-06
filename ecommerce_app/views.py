@@ -174,6 +174,11 @@ def checkout_page(request):
         'cart': {'items': cart_summary},
         'total_price': total_price,  # Pass the overall total to the template
     })
+    
+def display_content(request, slug):
+    # Fetch the content page based on the slug
+    content_page = get_object_or_404(ContentPage, slug=slug)
+    return render(request, 'ecommerce_app/display_content.html', {'page': content_page})
 
 # View to list all orders
 def order_list(request):

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from .views import homepage, product_page, order_list, order_update_status, cart_page, checkout_page, check_order_status, content_page_list, content_page_edit, confirmation_page, sales_dashboard
+from .views import homepage, product_page, order_list, display_content, order_update_status, cart_page, checkout_page, check_order_status, content_page_list, content_page_edit, confirmation_page, sales_dashboard
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -15,4 +15,5 @@ urlpatterns = [
     path('confirmation/', confirmation_page, name='confirmation_page'),
     path('pages/', content_page_list, name='content_page_list'),
     path('pages/edit/<slug:slug>/', content_page_edit, name='content_page_edit'),
+    path('content/<slug:slug>/', display_content, name='display_content'),
 ]
