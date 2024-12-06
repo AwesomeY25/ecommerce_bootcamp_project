@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import CheckoutForm, ContentPageForm, OrderStatusForm, RefundForm
+from .forms import CheckoutForm, ProductForm, ContentPageForm, OrderStatusForm, RefundForm
 from .models import Product, Category, Order, OrderItem, ContentPage
 from django.http import JsonResponse
 from django.db.models import Sum, Avg, Count, Q, F
@@ -325,3 +325,16 @@ def content_page_edit(request, slug):
 # Confirmation Page View
 def confirmation_page(request):
     return render(request, 'ecommerce_app/confirmation_page.html')
+
+# Product Form View
+# views.py
+
+def product_form(request):
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('homepage')
+    else:
+        form = ProductForm()
+    return render(request, 'ecommerce_app/product_form.html', {'form': form})

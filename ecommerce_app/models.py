@@ -13,9 +13,16 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     stock = models.IntegerField(default=0)
     image = models.ImageField(upload_to='products/')
+    tags = models.CharField(max_length=100, blank=True, help_text='Enter tags separated by commas')
 
     def __str__(self):
         return self.name
+    
+    def get_tags_list(self):
+        return self.tags.split(',') if self.tags else []
+    
+    def set_tags_list(self, tags_list):
+        self.tags = ','.join(tags_list)
 
 class Order(models.Model):
     customer_name = models.CharField(max_length=255)
