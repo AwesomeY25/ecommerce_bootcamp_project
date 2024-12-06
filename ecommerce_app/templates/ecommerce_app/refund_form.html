@@ -1,0 +1,6 @@
+<!-- refund_form.html -->
+<h1>Process Refund for Order {{ order.confirmation_number }}</h1>
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit">Issue Refund</button>
+</form>

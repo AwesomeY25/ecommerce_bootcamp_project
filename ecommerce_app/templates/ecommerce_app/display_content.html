@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .content-page {
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        .content-page img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .content-page p {
+            font-size: 1.1em;
+            color: #555;
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 20px;
+            color: #007BFF;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ page.title }}</h1>
+    <div class="content-page">
+        {% if page.image %}
+            <img src="{{ page.image.url }}" alt="{{ page.title }}">
+        {% endif %}
+        <div>
+            <p>{{ page.content|linebreaksbr }}</p>
+        </div>
+    </div>
+    <a class="back-link" href="{% url 'homepage' %}">Back to Homepage</a>
+</body>
+</html>

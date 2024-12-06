@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Order Status</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        p {
+            font-size: 1.1em;
+            text-align: center;
+            color: #555;
+        }
+
+        /* Form Container */
+        .form-container {
+            width: 50%;
+            margin: 30px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Form Styles */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        form h2 {
+            font-size: 1.5em;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input, select, button {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 1em;
+        }
+
+        input, select {
+            width: 100%;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 30px;
+            color: #4CAF50;
+            text-decoration: none;
+            font-size: 1.1em;
+        }
+
+        a:hover {
+            color: #45a049;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .form-container {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Update Order Status</h1>
+    
+    <p>Order: {{ order.confirmation_number }} - {{ order.customer_name }}</p>
+
+    <!-- Update Status Form -->
+    <div class="form-container">
+        <h2>Update Status</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" name="update_status">Update Status</button>
+        </form>
+    </div>
+
+    <!-- Issue Refund Form -->
+    <div class="form-container">
+        <h2>Issue Refund</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {{ refund_form.as_p }}
+            <button type="submit" name="issue_refund">Issue Refund</button>
+        </form>
+    </div>
+
+    <a href="{% url 'order_list' %}">Back to Orders List</a>
+</body>
+</html>
