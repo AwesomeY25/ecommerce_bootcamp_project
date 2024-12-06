@@ -6,10 +6,8 @@
     
     <div class="row">
         <div class="col-md-4">
-            <!-- Product placeholder image -->
-            <div class="product-placeholder">
-                <p>Image</p>
-            </div>
+            <!-- Display Product Image -->
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid">
         </div>
 
         <div class="col-md-8">
@@ -20,7 +18,7 @@
             <p><strong>Tags:</strong> 
                 {% if product.get_tags_list %} 
                     {% for tag in product.get_tags_list %} 
-                        <span class="badge bg-secondary">{{ tag }}</span> 
+                        <a href="{% url 'product_search_price_ascending' tag %}" class="badge bg-secondary">{{ tag }}</a>
                     {% endfor %}
                 {% else %} 
                     No tags available 

@@ -338,3 +338,25 @@ def product_form(request):
     else:
         form = ProductForm()
     return render(request, 'ecommerce_app/product_form.html', {'form': form})
+
+#Search by Tags View
+# views.py
+def product_search(request, tags, sort_order='price_ascending'):
+    tag_list = tags.split('+')
+    products = Product.objects.all()
+
+    for tag in tag_list:
+        products = products.filter(tags__icontains=tag)
+
+    if sort_order == 'price_ascending':
+        products = products.order_by('price')
+    elif sort_order == 'price_descending':
+        products = products.order_by('-price')
+
+    context = {
+        'tags': tags,
+        'products': products,
+        'sort_order': sort_order,
+    }
+    return render(request, 'ecommerce_app/product_search.html', context)
+

@@ -75,3 +75,4 @@ class Refund(models.Model):
 
     def __str__(self):
         return f"Refund for Order {self.order.confirmation_number} - {self.status}"
+    
