@@ -25,6 +25,14 @@ class Product(models.Model):
         self.tags = ','.join(tags_list)
 
 class Order(models.Model):
+    STATUS_CHOICES = [ 
+        ('pending', 'Pending'),
+        ('processing', 'Processing'), 
+        ('shipped', 'Shipped'), 
+        ('delivered', 'Delivered'), 
+        ('canceled', 'Canceled'), 
+    ]
+
     customer_name = models.CharField(max_length=255)
     confirmation_number = models.CharField(max_length=100, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -32,7 +40,9 @@ class Order(models.Model):
     status = models.CharField(max_length=50, default='Pending')
     shipping_address = models.TextField()  # Added field for shipping address
     total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)  # Added field for total price
-
+    ordered_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
     def __str__(self):
         return f"Order {self.confirmation_number} by {self.customer_name}"
 
