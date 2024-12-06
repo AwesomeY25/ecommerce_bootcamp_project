@@ -6,8 +6,8 @@
 
     <div class="mb-3">
         <label for="sort" class="form-label">Sort by Price:</label>
-        <a href="{% url 'product_search_price_ascending' tags %}" class="btn btn-outline-primary me-2 {% if sort_order == 'price_ascending' %}active{% endif %}">Lowest to Highest</a>
-        <a href="{% url 'product_search_price_descending' tags %}" class="btn btn-outline-primary {% if sort_order == 'price_descending' %}active{% endif %}">Highest to Lowest</a>
+        <a href="{% url 'product_search_price_ascending' tags %}" class="btn btn-outline-primary me-2 {% if sort_order == 'price_ascending' %}active{% endif %}">Price Ascending</a>
+        <a href="{% url 'product_search_price_descending' tags %}" class="btn btn-outline-primary {% if sort_order == 'price_descending' %}active{% endif %}">Price Descending</a>
     </div>
 
     <h3>Search Results</h3>
