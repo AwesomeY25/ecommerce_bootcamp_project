@@ -1,15 +1,15 @@
-{% extends 'ecommerce_app/base.html' %}
+{% extends 'ecommerce_app/basecopy.html' %}
 
 {% block content %}
 <div class="hero-section">
     <h1>Find Parts For Your Vehicle</h1>
     <p>Over hundreds of brands and tens of thousands of parts</p>
-    <div class="search-bar">
-        <input type="text" placeholder="Brand">
-        <input type="text" placeholder="Type">
-        <input type="text" placeholder="Color">
-        <button type="submit">Search</button>
-    </div>
+    <li class="nav-item">
+        <form class="d-flex" onsubmit="event.preventDefault(); window.location.href='/product/search/' + document.getElementById('tags').value.replace(/,\s*/g, '+') + '/';">
+          <input class="form-control me-2" type="text" id="tags" placeholder="Enter tags separated by commas" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+    </li>
 </div>
 
 <div class="featured-categories">

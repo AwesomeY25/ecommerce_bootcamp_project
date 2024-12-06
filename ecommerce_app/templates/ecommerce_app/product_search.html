@@ -1,0 +1,36 @@
+{% extends 'ecommerce_app/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Search Results for Tags: {{ tags }}</h2>
+
+    <div class="mb-3">
+        <label for="sort" class="form-label">Sort by Price:</label>
+        <a href="{% url 'product_search_price_ascending' tags %}" class="btn btn-outline-primary me-2 {% if sort_order == 'price_ascending' %}active{% endif %}">Lowest to Highest</a>
+        <a href="{% url 'product_search_price_descending' tags %}" class="btn btn-outline-primary {% if sort_order == 'price_descending' %}active{% endif %}">Highest to Lowest</a>
+    </div>
+
+    <h3>Search Results</h3>
+    <div class="row">
+        {% for product in products %}
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{% url 'product_page' product.id %}" class="text-decoration-none">{{ product.name }}</a>
+                    </h5>
+                    <p class="card-text">{{ product.description }}</p>
+                    <p><strong>Price:</strong> PHP {{ product.price }}</p>
+                    <p><strong>Tags:</strong>
+                        {% for tag in product.get_tags_list %}
+                        <span class="badge bg-secondary">{{ tag }}</span>
+                        {% endfor %}
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
