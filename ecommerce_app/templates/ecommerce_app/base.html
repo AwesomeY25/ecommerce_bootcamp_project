@@ -44,6 +44,9 @@
             <li class="nav-item"> 
               <a class="nav-link" href="{% url 'product_form' %}" aria-label="Create a Product Listing">Create Product</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'check_order_status' %}" aria-label="Check Order Status">Check Order Status</a>
+            </li>
             <!-- Search Bar -->
             <li class="nav-item">
               <form class="d-flex" onsubmit="event.preventDefault(); window.location.href='/product/search/' + document.getElementById('tags').value.replace(/,\s*/g, '+') + '/';">
